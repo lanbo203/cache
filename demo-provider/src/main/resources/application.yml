@@ -1,0 +1,55 @@
+spring:
+  application:
+    name: demo-provider
+  redis:
+    database: 0
+    #host: 192.168.252.128
+    host: localhost
+    port: 6379
+    password:
+    pool:
+      max-active: 50
+      max-wait: -1
+      max-idle: 50
+    timeout: 0
+
+server:
+  port: 2002
+
+druid:
+  jdbc:
+    driveClassName: com.mysql.jdbc.Driver
+    jdbcUrl: jdbc:mysql://localhost:3306/user
+    jdbcUsername: root
+    jdbcPassword: root
+    dbType: mysql
+    maxActive: 30
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 3
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 'x'
+    testWhileIdle: true
+    testOnBrowwon: false
+    testOnReturn: false
+    filters: stat,wall
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  #configLocation: classpath:mybatis-config.xml
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9000/eureka/
+  instance:
+    hostname: localhost
+    instanceId: http://localhost:2002
+
+
+logging:
+  config: classpath:log4j2.xml
+  level:
+    root: info
+
+
