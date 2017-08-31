@@ -2,10 +2,12 @@ package com.example.demo.provider.controller;
 
 import com.example.demo.common.model.Result;
 import com.example.demo.common.model.User;
+import com.example.demo.provider.service.SendService;
 import com.example.demo.provider.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.Date;
 
 /**
@@ -16,7 +18,8 @@ import java.util.Date;
 public class UserController {
 
 
-    @Autowired
+    //    @Autowired
+    @Resource(name = "userSerivceImpl")
     public UserService userService;
 
     @RequestMapping(value = "/user/{userId}",method = RequestMethod.GET)
@@ -44,6 +47,32 @@ public class UserController {
         return result;
     }
 
+
+
+
+    @RequestMapping(value = "/user/{name}/name",method = RequestMethod.GET)
+    public Result<User> getUserByName(@PathVariable("name") String name){
+
+
+        Result result = new Result();
+
+        try {
+            User user = userService.getUserByName(name);
+            result.setData(user);
+            result.setSuccess(true);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            result.setSuccess(false);
+            result.setError("查询失败");
+        }
+        return result;
+    }
+
+
+
     @RequestMapping(value = "/user/update",method = RequestMethod.PUT)
     public Result updateUser(@RequestBody User user){
 
@@ -52,6 +81,7 @@ public class UserController {
         try {
             userService.updateUser(user);
             result.setSuccess(true);
+            result.setData(user);
         } catch (Exception e) {
             e.printStackTrace();
             result.setSuccess(false);
@@ -60,5 +90,35 @@ public class UserController {
 
         return result;
 
+    }
+
+
+    @RequestMapping(value = "/user/{userId}/delete",method = RequestMethod.DELETE)
+    public Result delete(@PathVariable("userId") Long userId){
+
+        Result result = new Result();
+
+        try {
+            userService.delete(userId);
+            result.setSuccess(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.setSuccess(false);
+            result.setError("delete fail");
+        }
+
+        return result;
+
+    }
+
+
+    //##########################   异步kafka测试  #######################
+
+    @Autowired
+    private SendService service;
+
+    @RequestMapping(value = "/send/{msg}", method = RequestMethod.GET)
+    public void send(@PathVariable("msg") String msg){
+        service.sendMessage(msg);
     }
 }

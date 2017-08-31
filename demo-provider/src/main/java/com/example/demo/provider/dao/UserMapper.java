@@ -2,8 +2,9 @@ package com.example.demo.provider.dao;
 
 import com.example.demo.common.model.User;
 import com.example.demo.common.model.UserExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface UserMapper {
     /**
@@ -93,4 +94,9 @@ public interface UserMapper {
      * @mbg.generated Mon Aug 28 14:39:49 CST 2017
      */
     int updateByPrimaryKey(User record);
+
+    User getUserByName(String name);
+
+
+
 }

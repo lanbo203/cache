@@ -32,6 +32,16 @@ public class UserController {
         return result;
     }
 
+    @RequestMapping(value = "/{name}/name", method = RequestMethod.GET)
+    public Result<User> getUserByName(@PathVariable("name") String name){
+        Result result = new Result();
+        try {
+            result = userService.getUserByName(name);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 
     @RequestMapping(value = "/update",method = RequestMethod.PUT)
     public Result updateUser(@RequestBody User user){
@@ -40,6 +50,23 @@ public class UserController {
         try{
 
            result =  userService.updateUser(user);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+
+
+
+    @RequestMapping(value = "/{userId}/delete",method = RequestMethod.DELETE)
+    public Result delete(@PathVariable("userId") Long userId){
+
+        Result result = new Result();
+        try{
+
+            result =  userService.delete(userId);
         }catch (Exception e){
             e.printStackTrace();
         }

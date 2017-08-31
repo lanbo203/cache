@@ -6,9 +6,13 @@ import com.example.demo.common.model.User;
  * Created by lanbo on 2017/8/28.
  */
 public interface UserService {
-    public User getUser(Long userId);
+    User getUser(Long userId);
 
-    public int updateUser(User user);
+    User updateUser(User user);
 
-    public int insertUser(User user);
+    User getUserByName(String name);
+
+    int insertUser(User user);
+
+    User  delete (Long userId);
 }

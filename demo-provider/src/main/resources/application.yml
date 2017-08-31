@@ -3,8 +3,8 @@ spring:
     name: demo-provider
   redis:
     database: 0
-    #host: 192.168.252.128
-    host: localhost
+    host: 192.168.252.128
+    #host: localhost
     port: 6379
     password:
     pool:
@@ -12,6 +12,29 @@ spring:
       max-wait: -1
       max-idle: 50
     timeout: 0
+#kafka
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: 192.168.252.128:9092
+          zk-nodes: 192.168.252.128:2181
+          minPartitionCount: 1
+          autoCreateTopics: true
+          autoAddPartitions: true
+      bindings:
+        input:
+          destination: topic-01
+          group: t1
+          consumer:
+            concurrency: 1
+            partitioned: false
+        output:
+          destination: topic-01
+          content-type: text/plain
+          producer:
+            partitionCount: 1
+            partitionKeyExpression: payload.id
 
 server:
   port: 2002
@@ -51,5 +74,8 @@ logging:
   config: classpath:log4j2.xml
   level:
     root: info
+
+
+
 
 

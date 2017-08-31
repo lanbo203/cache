@@ -14,8 +14,19 @@ public interface UserService {
 
 
     @RequestMapping(value = "/user/{userId}",method = RequestMethod.GET)
-    public Result getUserInfo(@PathVariable("userId") Long userId);
+    Result getUserInfo(@PathVariable("userId") Long userId);
 
     @RequestMapping(value = "/user/update",method = RequestMethod.PUT)
-    public Result updateUser(@RequestBody User user);
+    Result updateUser(@RequestBody User user);
+
+
+    @RequestMapping(value = "/user/{name}/name",method = RequestMethod.GET)
+    Result getUserByName(@PathVariable("name") String name);
+
+//    @RequestMapping(value = "/user/insert",method = RequestMethod.PUT)
+//    public int insertUser(User user);
+
+    @RequestMapping(value = "/user/{userId}/delete",method = RequestMethod.DELETE)
+    Result  delete (@PathVariable("userId") Long userId);
+
 }
