@@ -1,5 +1,6 @@
 package com.example.demo.provider.service;
 
+import com.example.demo.common.model.TransMsg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.messaging.Source;
@@ -16,10 +17,24 @@ public class SendService {
 
     public void sendMessage(String msg) {
 
-        try {
+        try{
+
+            System.out.println("send start msg:"+msg);
 
             source.output().send(MessageBuilder.withPayload(msg).build());
+            System.out.println("send end msg:"+msg);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
+    public void sendMessage(TransMsg msg) {
+
+        try {
+
+            System.out.println("send start msg:"+msg.toString());
+            source.output().send(MessageBuilder.withPayload(msg).build());
+            System.out.println("send end msg:");
         } catch (Exception e) {
             e.printStackTrace();
         }

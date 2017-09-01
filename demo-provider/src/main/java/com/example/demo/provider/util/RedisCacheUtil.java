@@ -3,11 +3,12 @@ package com.example.demo.provider.util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by yexin on 2017/8/30.
  */
-//@Component
+@Component
 public class RedisCacheUtil {
 
     @Autowired
@@ -39,8 +40,12 @@ public class RedisCacheUtil {
      * @param key
      * @return
      */
-    public String getValue(String key) {
-        return stringRedisTemplate.opsForValue().get(key);
+//    public String getValue(String key) {
+//        return stringRedisTemplate.opsForValue().get(key);
+//    }
+
+    public Object getValue(String key) {
+        return redisTemplate.opsForValue().get(key);
     }
     /**
      * 根据key获取对象
@@ -57,4 +62,15 @@ public class RedisCacheUtil {
     public void delete(String key) {
         redisTemplate.delete(key);
     }
+
+    /**
+     * 查询key是否存在
+     * @param key
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public boolean exists(String key) {
+        return redisTemplate.hasKey(key);
+    }
+
 }

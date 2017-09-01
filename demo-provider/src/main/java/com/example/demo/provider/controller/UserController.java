@@ -1,6 +1,7 @@
 package com.example.demo.provider.controller;
 
 import com.example.demo.common.model.Result;
+import com.example.demo.common.model.TransMsg;
 import com.example.demo.common.model.User;
 import com.example.demo.provider.service.SendService;
 import com.example.demo.provider.service.UserService;
@@ -18,8 +19,10 @@ import java.util.Date;
 public class UserController {
 
 
+
+
     //    @Autowired
-    @Resource(name = "userSerivceImpl")
+    @Resource(name = "userServiceImpl2")
     public UserService userService;
 
     @RequestMapping(value = "/user/{userId}",method = RequestMethod.GET)
@@ -117,8 +120,13 @@ public class UserController {
     @Autowired
     private SendService service;
 
-    @RequestMapping(value = "/send/{msg}", method = RequestMethod.GET)
-    public void send(@PathVariable("msg") String msg){
+//    @RequestMapping(value = "/send/{msg}", method = RequestMethod.GET)
+//    public void send(@PathVariable("msg") String msg){
+//        service.sendMessage(msg);
+//    }
+
+    @RequestMapping(value = "/send", method = RequestMethod.PUT)
+    public void send(@RequestBody TransMsg msg){
         service.sendMessage(msg);
     }
 }

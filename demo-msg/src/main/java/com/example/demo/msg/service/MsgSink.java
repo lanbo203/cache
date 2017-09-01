@@ -1,4 +1,4 @@
-package com.example.demo.provider.service;
+package com.example.demo.msg.service;
 
 import com.example.demo.common.model.TransMsg;
 import org.springframework.cloud.stream.annotation.EnableBinding;

@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: demo-msg
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: 192.168.252.128:9092
+          zk-nodes: 192.168.252.128:2181
+          minPartitionCount: 1
+          autoCreateTopics: true
+          autoAddPartitions: true
+      bindings:
+        input:
+          destination: topic-02
+          content-type: application/json
+          group: t1
+          consumer:
+            concurrency: 1
+            partitioned: false
+
+
+server:
+  port: 2003
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9001/eureka/
+  instance:
+    hostname: localhost
+    instanceId: http://localhost:2003

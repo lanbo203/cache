@@ -14,27 +14,29 @@ spring:
     timeout: 0
 #kafka
   cloud:
-    stream:
-      kafka:
-        binder:
-          brokers: 192.168.252.128:9092
-          zk-nodes: 192.168.252.128:2181
-          minPartitionCount: 1
-          autoCreateTopics: true
-          autoAddPartitions: true
-      bindings:
-        input:
-          destination: topic-01
-          group: t1
-          consumer:
-            concurrency: 1
-            partitioned: false
-        output:
-          destination: topic-01
-          content-type: text/plain
-          producer:
-            partitionCount: 1
-            partitionKeyExpression: payload.id
+      stream:
+        kafka:
+          binder:
+            brokers: 192.168.252.128:9092
+            zk-nodes: 192.168.252.128:2181
+            minPartitionCount: 1
+            autoCreateTopics: true
+            autoAddPartitions: true
+        bindings:
+          input:
+            destination: topic-02
+            content-type: application/json
+            group: t1
+            consumer:
+              concurrency: 1
+              partitioned: false
+          output:
+            destination: topic-02
+            content-type: application/json
+            producer:
+              partitionCount: 1
+        instance-count: 1
+        instance-index: 0
 
 server:
   port: 2002
@@ -64,7 +66,7 @@ mybatis:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:9000/eureka/
+      defaultZone: http://localhost:9001/eureka/
   instance:
     hostname: localhost
     instanceId: http://localhost:2002
